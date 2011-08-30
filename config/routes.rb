@@ -1,4 +1,6 @@
 SampleApp::Application.routes.draw do
+  get "users/new"
+
   root :to => "pages#home"
   # get "pages/home" # replaced by the above line
 
@@ -10,6 +12,8 @@ SampleApp::Application.routes.draw do
   
   match '/help', :to => 'pages#help'
   #  get "pages/help"   # replaced by the above line
+  
+  match '/signup', :to => 'users#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
