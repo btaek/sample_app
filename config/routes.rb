@@ -1,5 +1,7 @@
 SampleApp::Application.routes.draw do
-  get "users/new"
+  
+  resources :users
+  # get "users/new"   # the above brings users controller for free, so this line is no longer needed
 
   root :to => "pages#home"
   # get "pages/home" # replaced by the above line
