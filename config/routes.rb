@@ -1,5 +1,8 @@
 SampleApp::Application.routes.draw do
-  get "users/new"
+  
+  resources :users
+  # get "users/new"   # the above brings users controller for free, so this line is no longer needed
+  # so as the "show" action in users_controller.rb as well! so, is the "new" action there!
 
   root :to => "pages#home"
   # get "pages/home" # replaced by the above line
