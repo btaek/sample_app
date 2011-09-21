@@ -1,0 +1,24 @@
+<h1>Sign in</h1>
+
+<!-- differently from Sign up page, since we don't have the model for sessions(but, users do) -->
+<!-- instead of introducing an @user instance variable, we do as the below -->
+
+<%= form_for(:session, :url => sessions_path) do |f| %> 
+	<!-- in the line above, inside form_for shows, how different it is from signup page -->
+	
+	<!-- also here, we handle errors differently from sign up page -->
+	<!-- signup page worked with active record object, but signin doesnt have active record object  -->
+	<div class="field">
+		<%= f.label :email %><br/>
+		<%= f.text_field :email %>
+	</div>
+	<div class="field">
+		<%= f.label :password %><br/>
+		<%= f.password_field :password %>
+	</div>
+	<div class="actions">
+		<%= f.submit "Sign in" %>
+	</div>
+<% end %>
+
+<p>New user? <%= link_to "Sign up now!", signup_path %></p>

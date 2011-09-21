@@ -1,22 +1,22 @@
 SampleApp::Application.routes.draw do
-  
+
   resources :users
   # get "users/new"   # the above brings users controller for free, so this line is no longer needed
   # so as the "show" action in users_controller.rb as well! so, is the "new" action there!
 
-  root :to => "pages#home"
-  # get "pages/home" # replaced by the above line
+  resources :sessions, :only => [:new, :create, :destroy] # optional hash here. for users, we needed everything
+                                                          # but, for sessions, we just need 3 things.
 
-  match '/about', :to => 'pages#about'
-  #  get "pages/about"  # replaced by the above line
+  root :to => "pages#home" # get "pages/home" is replaced by the left
   
-  match '/contact', :to => 'pages#contact'
-  #  get "pages/contact" # replaced by the above line
+  match '/about',   :to => 'pages#about'    #  get "pages/about" is replaced by the left
+  match '/contact', :to => 'pages#contact'  #  get "pages/contact" is replaced by the left
+  match '/help',    :to => 'pages#help'     #  get "pages/help" is replaced by the left
+  match '/signup',  :to => 'users#new'
   
-  match '/help', :to => 'pages#help'
-  #  get "pages/help"   # replaced by the above line
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
   
-  match '/signup', :to => 'users#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
