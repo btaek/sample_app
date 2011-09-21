@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 #  class <<self  # this is a class level definition. here, self refers to the User class, not an instance
                 # you could enclose the below def part with a class definition, 
                 # but since this is already inside User class, so no need. so, i commented out the above line
+    
     def self.authenticate(email, submitted_password) #so, as it says above, this is a class level method
       user = find_by_email(email) # this is inside the class methos, no need to be "User.find_by_email"
       return nil if user.nil?
