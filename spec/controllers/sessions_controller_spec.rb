@@ -15,7 +15,7 @@ render_views
     end
   end
   
-  describe "POST 'new'" do
+  describe "POST 'create'" do
     
     describe "failure" do
       
@@ -36,6 +36,29 @@ render_views
       it "should have an error message" do
         post :create, :session => @attr
         flash.now[:error].should =~ /invalid/i
+      end
+      
+    end
+    
+    describe "success" do
+      
+      before(:each) do
+        @user = Factory(:user)
+        @attr = { :email => @user.email, :password => @user.password}  
+        # in the above line, in an ordinary way, @user.password wouldnt hold the actual password
+        # but, in factories.rb, we assigned password to the actual password, so we can do this
+      end
+      
+      it "should sign the user in" do
+        post :create, :session => @attr
+        controller.current_user.should == @user
+        controller.should be_signed_in
+      end
+      
+      it "should redirect to the user show page" do
+        post :create, :session => @attr
+        response.should redirect_to(user_path(@user))
+        # in sessions_controller.rb, we did "redirect_to user", but here, inside of spec, we have to specify the complete path as above
       end
       
     end
