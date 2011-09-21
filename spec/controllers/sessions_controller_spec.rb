@@ -36,8 +36,7 @@ render_views
       it "should have an error message" do
         post :create, :session => @attr
         flash.now[:error].should =~ /invalid/i
-      end
-      
+      end    
     end
     
     describe "success" do
@@ -59,10 +58,16 @@ render_views
         post :create, :session => @attr
         response.should redirect_to(user_path(@user))
         # in sessions_controller.rb, we did "redirect_to user", but here, inside of spec, we have to specify the complete path as above
-      end
-      
+      end     
     end
-    
   end
-
+  
+  describe "DELETE 'destroy'" do
+    it "should sign out a user" do
+      test_sign_in(Factory(:user))
+      delete :destroy
+      controller.should_not be_signed_in
+      response.should redirect_to(root_path)
+    end
+  end
 end
