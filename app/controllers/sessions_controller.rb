@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+
+  # the below is for SSL and HTTPS, so commented out  
+  # before_filter :force_ssl, :only => [:new, :create]  #enforce ssl and HTTPS only for new and create
   
   def new
     @title = "Sign in"
@@ -26,5 +29,14 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_path
   end
+  
+  # the below is for SSL and HTTPS, so commented out
+  # private
+  # 
+  #   def force_ssl
+  #     if !request.ssl?
+  #       redirect_to :protocol => 'https'
+  #     end
+  #   end
 
 end
