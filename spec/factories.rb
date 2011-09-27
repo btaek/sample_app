@@ -7,3 +7,7 @@ Factory.define :user do |user|  #factory girl infers from the use of user symbol
   user.password               "foobar"
   user.password_confirmation  "foobar"
 end
+
+Factory.sequence :email do |n|
+  "person-#{n}@example.com"
+end
