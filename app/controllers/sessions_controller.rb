@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user
-      redirect_to user # on the left, 'user' is supposed to be 'user_path(user)', but can omit the rest
+      redirect_back_or user # on the left, 'user' is supposed to be 'user_path(user)', but can omit the rest
     end
   end
   

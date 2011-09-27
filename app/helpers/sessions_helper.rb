@@ -31,9 +31,30 @@ module SessionsHelper
     self.current_user = nil
   end
   
+  def current_user?(user)
+    user == current_user
+  end
+  
   def deny_access
+    store_location
     flash[:notice] = "Please sign in to access this page."
     redirect_to signin_path
+  end
+  
+  def store_location
+    session[:return_to] = request.fullpath   # storing the location of the place that user is trying to get to
+  end
+  
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    clear_return_to
+  end
+  
+  def clear_return_to
+    session[:return_to] = nil
+    # when user signs out, deletes the session[:return_to]
+    # so when user signs back in, user does not end up on the edit page
+    # meaning user gets directed to the root page
   end
   
   private
