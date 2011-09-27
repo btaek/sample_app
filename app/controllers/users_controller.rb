@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   
+  before_filter :authenticate ,:only => [:edit, :update]   #only for edit method, authenticate user signedin
+  
   def show
     @user = User.find(params[:id])
     @title = @user.name
@@ -39,4 +41,10 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  private
+  
+    def authenticate
+      deny_access unless signed_in?   # deny_access method is in sessions_helper
+    end  
 end

@@ -31,6 +31,11 @@ module SessionsHelper
     self.current_user = nil
   end
   
+  def deny_access
+    flash[:notice] = "Please sign in to access this page."
+    redirect_to signin_path
+  end
+  
   private
   
   # below two def's are commented out for the case of logging out the user when browser closes
