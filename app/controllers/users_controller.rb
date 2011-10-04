@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   
-  before_filter :authenticate , :only => [:index, :edit, :update, :destroy]   #only for edit method, authenticate user signedin
-  before_filter :correct_user,  :only => [:edit, :update]
-  before_filter :admin_user,    :only => [:destroy]
+  before_filter :authenticate ,   :only => [:index, :edit, :update, :destroy]   #only for edit method, authenticate user signedin
+  before_filter :correct_user,    :only => [:edit, :update]
+  before_filter :admin_user,      :only => [:destroy]
+  before_filter :check_signed_in, :only => [:new, :create]  # don't allow new and create for signed in users
   
   def index
     @users = User.paginate(:page => params[:page])
@@ -73,5 +74,9 @@ class UsersController < ApplicationController
     def admin_user
       user = User.find(params[:id])
       redirect_to(root_path) if (!current_user.admin? || current_user?(user))
+    end
+    
+    def check_signed_in
+      redirect_to root_path if signed_in? # redirect to the root_path if the user is signed in
     end
 end

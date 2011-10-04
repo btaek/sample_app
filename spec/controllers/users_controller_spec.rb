@@ -111,6 +111,19 @@ describe UsersController do
 
   describe "GET 'new'" do
     
+    describe "for signed-in users" do
+      
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+      
+      it "should redirect to the root_path" do
+        get :new
+        response.should redirect_to(root_path)
+      end
+    end
+    
     it "should be successful" do
       get :new  #:new symbol could also be ""'new'"" string. default specs use string, but we could use symbos as well!
       response.should be_success
@@ -143,6 +156,20 @@ describe UsersController do
   end
   
   describe "POST 'create'" do
+    
+    describe "for signed-in users" do
+       
+       before(:each) do
+         @user = Factory(:user)
+         test_sign_in(@user)
+         @attr = { :name => "New User", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar"}
+       end
+       
+       it "should redirect to the root_path" do
+         post :create, :user => @attr
+         response.should redirect_to(root_path)
+       end
+     end
     
     describe "failure" do
       
@@ -326,6 +353,13 @@ describe UsersController do
         test_sign_in(@user)
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
+      end
+      
+      it "should have show delete links for non-admin user" do
+        test_sign_in(@user)
+        other_user = User.all.second
+        delete :destroy, :id => @user
+        response.should_not have_selector('a', :href => user_path(other_user), :content => "delete")
       end
     end
     
