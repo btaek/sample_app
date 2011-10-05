@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   attr_accessor   :password
   attr_accessible :name, :email, :password, :password_confirmation
   
+  has_many :microposts, :dependent => :destroy  
+  # above, dependent => :destroy makes all the microposts destroyed when the associated user is destroyed
+  
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
   validates :name,    :presence     => true,
