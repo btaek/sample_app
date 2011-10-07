@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
   
+  def feed
+    Micropost.where("user_id = ?", self.id) 
+    # the above finds microposts where user_id is equal to the current user's id
+  end
+  
 #  class <<self  # this is a class level definition. here, self refers to the User class, not an instance
                 # you could enclose the below def part with a class definition, 
                 # but since this is already inside User class, so no need. so, i commented out the above line
