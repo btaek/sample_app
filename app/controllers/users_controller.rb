@@ -63,10 +63,6 @@ class UsersController < ApplicationController
     end
   
   private
-  
-    def authenticate
-      deny_access unless signed_in?   # deny_access method is in sessions_helper
-    end
     
     def correct_user
       @user = User.find(params[:id])

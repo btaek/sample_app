@@ -6,6 +6,8 @@ SampleApp::Application.routes.draw do
 
   resources :sessions, :only => [:new, :create, :destroy] # optional hash here. for users, we needed everything
                                                           # but, for sessions, we just need 3 things.
+  resources :microposts, :only => [:create, :destroy]
+
 
   root :to => "pages#home" # get "pages/home" is replaced by the left
   
