@@ -8,10 +8,10 @@
 	<% user = micropost.user rescue User.find(micropost.user_id) %>
 	<!-- above is added because 'current_user?(micropost.user)' below causes errors sometimes -->
 	<!-- very strange error, but the above line is the way to work around the error -->
-	<% if current_user?(user) %>
+	<% if current_user?(micropost.user) %>
 		<td>
 			<%= link_to "delete", micropost, 	:method => :delete,
-			 									:confirm => "Are you sure?",
+			 									:confirm => "Are u sure?",
 												:title => micropost.content %>
 		</td>
 	<% end %>

@@ -1,7 +1,32 @@
+<!-- <%= javascript_include_tag 'jquery', 'application' %> -->
+<!-- the above line is lo longer needed after installing jquery and getting rid of prototype(https://github.com/indirect/jquery-rails), so commented out -->
+
+	<!-- jquery file and word counting function added application file added. they are under public/javascripts -->
 <%= form_for(@micropost) do |f| %>
 <%= render 'shared/error_messages', :object => f.object %>
 	<div class = "field">
-		<%= f.text_area :content %>
+		<%= f.text_area :content, :maxlength => 140 %>
+	</div>
+	<!-- The below div is to count how many words a user can type more -->
+	<div>
+		Character(s) remaining: 
+			<span id = "counter">140</span>
+			
+			<!-- the function below has been movied to public/javascripts/application.js -->
+			
+		<!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" 	
+				type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function() 
+								{
+							$("#micropost_content").live("keyup keydown", 
+								function()
+								{
+									var left = 140 - $(this).val().length;
+									$("#counter").html(left);
+								});
+						})
+		</script> -->
 	</div>
 	<div class = "actions">
 		<%= f.submit "Submit" %>
